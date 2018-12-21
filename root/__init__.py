@@ -10,19 +10,9 @@
 #-------------------------------------------------------------------------------
 from flask import Flask
 from sqlalchemy import create_engine
-import urllib
-
-conn_str = (
-    "DRIVER={SQL Server Native Client 11.0};"
-    "SERVER=(local)\\SQLEXPRESS;"
-    "DATABASE=imdb;"
-    "UID=kkrishnav;"
-    "PWD='2018@Factset';"
-    "Trusted_Connection=yes;"
-)
-quoted_conn_str = urllib.quote_plus(conn_str)
+import config
 
 application = Flask(__name__)
-engine = create_engine('mssql+pyodbc:///?odbc_connect={0}'.format(quoted_conn_str), echo=False)
+engine = create_engine(config.CONNECTION_STRING, echo=False)
 
 from controllers import *
